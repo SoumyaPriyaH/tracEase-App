@@ -74,7 +74,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'distance_calculator.dart';
-import 'guage_pointer.dart'; // Import the custom painter
 
 class DistanceScreen extends StatefulWidget {
   final String deviceName;
@@ -97,9 +96,6 @@ class _DistanceScreenState extends State<DistanceScreen> {
   }
 
   void startScan() {
-    // Clear previous results
-    distance = null;
-
     // Start scanning
     flutterBlue.startScan(timeout: Duration(seconds: 4));
 
@@ -140,16 +136,7 @@ class _DistanceScreenState extends State<DistanceScreen> {
             Text('Device Name: ${widget.deviceName}', style: TextStyle(fontSize: 20)),
             SizedBox(height: 10),
             distance != null
-                ? Column(
-              children: [
-                CustomPaint(
-                  size: Size(200, 200),
-                  painter: GaugePainter(distance: distance!),
-                ),
-                SizedBox(height: 10),
-                Text('Distance: ${distance!.toStringAsFixed(2)} meters', style: TextStyle(fontSize: 20)),
-              ],
-            )
+                ? Text('Distance: ${distance!.toStringAsFixed(2)} meters', style: TextStyle(fontSize: 20))
                 : CircularProgressIndicator(), // Show a loading indicator while distance is null
           ],
         ),

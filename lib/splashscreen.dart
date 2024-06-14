@@ -24,13 +24,24 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, //backgroundColor: const Color(0xFFE9FFDB),
-      body: Center(
-        child: SizedBox(
-          width: 200, // specify the desired width
-          height: 200, // specify the desired height
-          child: Image.asset("assets/images/logo2.jpg", fit: BoxFit.contain),
-        ),
+      backgroundColor: Colors.white, // Set background color for the entire screen
+      body: Stack(
+        fit: StackFit.expand, // Make the stack fill the entire screen
+        children: [
+          // Background image
+          Image.asset(
+            "assets/images/background2.png", // Replace with your full-size background image path
+            fit: BoxFit.cover, // Cover the entire stack area
+          ),
+          // Centered logo (if needed)
+          // Center(
+          //   child: SizedBox(
+          //     width: 200, // specify the desired width
+          //     height: 200, // specify the desired height
+          //     child: Image.asset("assets/images/logo2.jpg", fit: BoxFit.contain),
+          //   ),
+          // ),
+        ],
       ),
     );
   }

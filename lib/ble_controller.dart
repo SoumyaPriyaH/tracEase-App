@@ -142,7 +142,7 @@ class _ScanResultsScreenState extends State<ScanResultsScreen> {
           decoration: InputDecoration(
             hintText: 'Search for a device',
             border: InputBorder.none,
-            hintStyle: TextStyle(color: Colors.white54),
+            hintStyle: TextStyle(color: Colors.blueGrey),
           ),
           style: TextStyle(color: Colors.black), // Change text color to black
           onChanged: (query) {
@@ -164,36 +164,61 @@ class _ScanResultsScreenState extends State<ScanResultsScreen> {
             },
           ),
         ],
+        backgroundColor: Colors.white10, // Change AppBar color
       ),
-      body: ListView.builder(
-        itemCount: filteredScanResults.length,
-        itemBuilder: (context, index) {
-          final device = filteredScanResults[index].device;
-          final deviceName = device.name.isNotEmpty ? device.name : "Unknown Device";
-          final deviceAddress = device.id.id;
+      body: Container(
+        color: Colors.blueGrey, // Set the background color of the page
+        child: ListView.builder(
+          itemCount: filteredScanResults.length,
+          itemBuilder: (context, index) {
+            final device = filteredScanResults[index].device;
+            final deviceName = device.name.isNotEmpty ? device.name : "Unknown Device";
+            final deviceAddress = device.id.id;
 
-          return Align(
-            alignment: Alignment.center,
-            child: SizedBox(
-              width: 2.5 * 100, // 2.5cm in pixels (1cm ≈ 38.1 pixels)
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DistanceScreen(
-                        deviceName: deviceName,
-                        deviceAddress: deviceAddress,
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0), // Add vertical padding between buttons
+              child: Align(
+                alignment: Alignment.center,
+                child: SizedBox(
+                  width: 2.5 * 130, // 2.5cm in pixels (1cm ≈ 38.1 pixels)
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      // Button text color
+                      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0), // Button padding
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0), // Rounded corners
                       ),
+                      elevation: 3.0, // Button shadow
                     ),
-                  );
-                },
-                child: Text('$deviceName\n$deviceAddress'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DistanceScreen(
+                            deviceName: deviceName,
+                            deviceAddress: deviceAddress,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      '$deviceName\n$deviceAddress',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 14.0), // Text size
+                    ),
+                  ),
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: ScanResultsScreen(),
+  ));
 }
